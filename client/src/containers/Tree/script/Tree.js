@@ -5,12 +5,15 @@
 class Node {
   constructor(value) {
     this.value = value;
+    this.numberOfOccurrences = 1;
+    this.parentNode = null;
     this.children = [];
+    this.position = null;
   }
 }
 
 /**
- * This is our Tree data structure.
+ * This is our Unordered Tree data structure.
  */
 class Tree {
   constructor(node = null) {
@@ -20,17 +23,31 @@ class Tree {
   /**
    * 
    * 
-   * @param  {int} nodeVaue is a numerical value of the node we wish to find and delete.
+   * @param  {int} nodeVaue is a numerical value of the node we wish to find and delete in a
+   * depth first search manner.
    */
   deleteNode_DFS(nodeVaue) {
-    
+    const matchingNode = this._DFSsearch(nodeValue);
+    if (matchingNode.numberOfOccurrences > 1) {
+      matchingNode.numberOfOccurrences--;
+    } else {
+      delete matchingNode.parentNode[matchingNode.position];
+      matchingNode.parentNode.children.concat(matchingNode.children);
+    }
   }
 
   /**
-   * @param  {int} nodeVaue is a numerical value of the node we wish to find and delete.
+   * @param  {int} nodeVaue is a numerical value of the node we wish to find and delete in a 
+   * breadth first search manner.
    */
   deleteNode_BFS(nodeValue) {
-    
+    const matchingNode = this._BFSsearch(nodeValue);
+    if (matchingNode.numberOfOccurrences > 1) {
+      matchingNode.numberOfOccurrences--;
+    } else {
+      delete matchingNode.parentNode[matchingNode.position];
+      matchingNode.parentNode.children.concat(matchingNode.children);
+    }
   }
 
   /**
@@ -40,13 +57,19 @@ class Tree {
    * @param  {int} nodeValue is the numerical value of the node to be added.
    * @param  {int} locationValue is the numerical value of the node that we will add our new to
    *               a child to.
-   * @returns Tree this: We return this instance of the tree, so that we can easily chain methods.
+   * @return {Tree} this: We return this instance of the tree, so that we can easily chain methods.
    */
   addNodeToLocation_BFS(nodeValue, locationValue) {
     const node = new Node(nodeValue);
-    const targetMatch = this._BFS(locationValue);
-    if (!targetMatch) console.log("Could not append the node.");
-    targetMatch.children.push(node);
+    const matchingNode = this._BFS(locationValue);
+    if (!matchingNode) console.log("Could not append the node.");
+    if (matchingNode.value === node.value) {
+      matchingNode.numberOfOccurrences++;
+    } else {
+      node.parentNode = matchingNode;
+      node.position = matchingNode.children.length ? matchingNode.children.length + 1 : 0;
+      matchingNode.children.push(node);
+    }
     return this;
   }
 
@@ -57,13 +80,19 @@ class Tree {
    * @param  {int} nodeValue is the numerical value of the node to be added.
    * @param  {int} locationValue is the numerical value of the node that we will add our new to
    *               a child to.
-   * @returns Tree this: We return this instance of the tree, so that we can easily chain methods.
+   * @returns {Tree} this: We return this instance of the tree, so that we can easily chain methods.
    */
   addNodeToLocation_DFS(nodeValue, locationValue) {
     const node = new Node(nodeValue);
-    const targetMatch = this._DFSsearch(locationValue);
-    if (!targetMatch) console.log("Could not append the node.");
-    targetMatch.children.push(node);
+    const matchingNode = this._DFSsearch(locationValue);
+    if (!matchingNode) console.log("Could not append the node.");
+    if (matchingNode.value === node.value) {
+      matchingNode.numberOfOccurrences++;
+    } else {
+      node.parentNode = matchingNode;
+      node.position = matchingNode.children.length ? matchingNode.children.length + 1 : 0;
+      matchingNode.children.push(node);
+    }
     return this;
   }
 
@@ -72,7 +101,7 @@ class Tree {
    * It searches for a target node using a depth-first-search.
    * 
    * @param  {int} nodeValue is the numerical value of the node we are searching for.
-   * @returns Node current: We return the current node, so that we can access its value, or push new
+   * @returns {Node} current: We return the current node, so that we can access its value, or push new
    *                        child nodes.
    */
   _BFSsearch(nodeValue) {
@@ -97,7 +126,7 @@ class Tree {
    * It searches for a target node using a breadth-first-search.
    * 
    * @param  {int} nodeValue is the numerical value of the node we are searching for.
-   * @returns Node current: We return the current node, so that we can access its value, or push new
+   * @returns {Node} current: We return the current node, so that we can access its value, or push new
    *                        child nodes.
    */
   _DFSsearch(nodeValue) {
