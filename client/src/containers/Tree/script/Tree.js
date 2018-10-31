@@ -2,15 +2,7 @@
 // IN PROGRESS IN PROGRESS IN PROGRESS IN PROGRESS IN PROGRESS IN PROGRESS IN PROGRESS
 ////////////////////////////////////////////////////////////////////////////////////
 
-class Node {
-  constructor(value) {
-    this.value = value;
-    this.numberOfOccurrences = 1;
-    this.parentNode = null;
-    this.children = [];
-    this.position = null;
-  }
-}
+import Node from "../../Nodes/Tree/Node";
 
 /**
  * This is our Unordered Tree data structure.
@@ -21,8 +13,6 @@ class Tree {
   }
 
   /**
-   * 
-   * 
    * @param  {int} nodeVaue is a numerical value of the node we wish to find and delete in a
    * depth first search manner.
    */
@@ -31,8 +21,10 @@ class Tree {
     if (matchingNode.numberOfOccurrences > 1) {
       matchingNode.numberOfOccurrences--;
     } else {
-      delete matchingNode.parentNode[matchingNode.position];
-      matchingNode.parentNode.children.concat(matchingNode.children);
+      if (matchingNode.children.length) {
+        matchingNode.parentNode.children.concat(matchingNode.children);
+      }
+      delete matchingNode.parentNode.children[matchingNode.position];
     }
   }
 
@@ -45,8 +37,10 @@ class Tree {
     if (matchingNode.numberOfOccurrences > 1) {
       matchingNode.numberOfOccurrences--;
     } else {
-      delete matchingNode.parentNode[matchingNode.position];
-      matchingNode.parentNode.children.concat(matchingNode.children);
+      if (matchingNode.children.length) {
+        matchingNode.parentNode.children.concat(matchingNode.children);
+      }
+      delete matchingNode.parentNode.children[matchingNode.position];
     }
   }
 
@@ -67,7 +61,7 @@ class Tree {
       matchingNode.numberOfOccurrences++;
     } else {
       node.parentNode = matchingNode;
-      node.position = matchingNode.children.length ? matchingNode.children.length + 1 : 0;
+      node.position = matchingNode.children.length ? matchingNode.children.length : 0;
       matchingNode.children.push(node);
     }
     return this;
@@ -90,7 +84,7 @@ class Tree {
       matchingNode.numberOfOccurrences++;
     } else {
       node.parentNode = matchingNode;
-      node.position = matchingNode.children.length ? matchingNode.children.length + 1 : 0;
+      node.position = matchingNode.children.length ? matchingNode.children.length : 0;
       matchingNode.children.push(node);
     }
     return this;

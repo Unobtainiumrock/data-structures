@@ -1,10 +1,4 @@
-class Node {
-  constructor(value) {
-    this.value = value;
-    this.next = null;
-    this.previous = null;
-  }
-}
+import Node from "../../Nodes/DoublyLinked/Node"
 
 // Description
   // A doubly linked list is much like a singly linked list, except we also have each node pointing to
