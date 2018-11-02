@@ -1,4 +1,5 @@
-# Under Construction. This is a project I'm working on where I will provide a visual learning tool for people diving into data structures. Currently Doubly linked list is working. I believe basic Tree has one more thing to work out. I'm in the process of adding unit testing with Jest and completing the remaining data structures.
+# Under Construction
+This is a project I'm working on where I will provide a visual learning tool for people diving into data structures. Currently Doubly linked list is working. I believe basic Tree has one more thing to work out. I'm in the process of adding unit testing with Jest and completing the remaining data structures.
 
 
 
