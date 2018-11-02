@@ -1,3 +1,7 @@
+# Under Construction. This is a project I'm working on where I will provide a visual learning tool for people diving into data structures. Currently Doubly linked list is working. I believe basic Tree has one more thing to work out. I'm in the process of adding unit testing with Jest and completing the remaining data structures.
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
